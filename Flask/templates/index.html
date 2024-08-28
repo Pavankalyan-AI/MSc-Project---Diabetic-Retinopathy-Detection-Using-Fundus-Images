@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetic Retinopathy Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .container {
+            margin: 20px auto;
+            width: 300px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diabetic Retinopathy Detection</h1>
+    <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="file">Choose File</label>
+            <input type="file" name="file" id="file" accept="image/*" onchange="previewFile()">
+            <img id="preview" src="#" alt="Image Preview" style="display: none;">
+            <button type="submit">Predict</button>
+        </form>
+        <div class="result">
+            {% if pred_class %}
+                <h2>Prediction Result</h2>
+                <p>Predicted Class: {{ pred_class }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        function previewFile() {
+            const preview = document.getElementById('preview');
+            const file = document.getElementById('file').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+                preview.style.maxWidth = '300px';  // Adjust the size as needed
+                preview.style.height = 'auto';
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+Run the ipynb and download the efficientnetb0_model.h5 and efficientnetb0.weights.h5 files into local storage. 
+Copy these two files inside the flask folder.
+Open terminal and run app.py
